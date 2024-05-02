@@ -1,0 +1,29 @@
+name: ci
+
+on: ["push", "pull_request"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Installing Nodejs
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Format Code
+        run: npm run format
+
+      - name: Check linting
+        run: npm run lint
+
+      - name: Check commit message
+        uses: wagoid/commitlint-github-action@v1
