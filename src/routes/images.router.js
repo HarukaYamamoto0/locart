@@ -1,6 +1,6 @@
 import { Router } from "express";
 import multer from "multer";
-import multerConfig from "../config/multer.js";
+import multerConfig from "../core/multer.js";
 
 const router = Router();
 

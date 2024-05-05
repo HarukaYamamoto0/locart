@@ -1,17 +1,15 @@
 import express from "express";
+import configs from "../locart.config.js";
 import cors from "cors";
 import helmet from "helmet";
-import morgan from "morgan";
-import imageRouter from "./routes/images.js";
+import imageRouter from "./routes/images.router.js";
 
 const app = express();
-const port = process.env["PORT"] || 3000;
-const env = process.env["APP_ENV"] || "dev";
+const port = configs.server.port || 3000;
 
 // Express configuration
 app.use(cors());
 app.use(helmet());
-app.use(morgan(env));
 app.use(express.json());
 
 // Routes

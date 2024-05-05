@@ -4,7 +4,6 @@ about: Suggest an idea for this project
 title: "[Feature] - Add a new route"
 labels: enhancement
 assignees: HarukaYamamoto0
-
 ---
 
 **Is your feature request related to a problem? Please describe.**

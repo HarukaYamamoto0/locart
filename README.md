@@ -66,7 +66,7 @@ First of all, you need to have the basic tools for developing in NodeJs, which a
 - Code editor (can be Visual Studio Code)
 - Nodejs
 - Git
-> I strongly recommend you install the `LTS` version of nodejs using [nvm](https://github.com/nvm-sh/nvm), it is a version manager for nodejs, it makes installation easier and allows you to use different versions of nodejs
+  > I strongly recommend you install the `LTS` version of nodejs using [nvm](https://github.com/nvm-sh/nvm), it is a version manager for nodejs, it makes installation easier and allows you to use different versions of nodejs
 
 ### Installation
 
@@ -131,9 +131,9 @@ Don't forget to give the project a star! Thank you again!
 
 ## Acknowledgments
 
-* [Jpawlowski for the incredibly readme template](https://github.com/othneildrew/Best-README-Template)
-* [Rocketseat for the videos showing how to do it](https://youtu.be/MkkbUfcZUZM?si=0mV3_9I5Y_AN16rQ)
-* [Flaticon by star logo](https://www.flaticon.com/br/icones-gratis/estrela)
+- [Jpawlowski for the incredibly readme template](https://github.com/othneildrew/Best-README-Template)
+- [Rocketseat for the videos showing how to do it](https://youtu.be/MkkbUfcZUZM?si=0mV3_9I5Y_AN16rQ)
+- [Flaticon by star logo](https://www.flaticon.com/br/icones-gratis/estrela)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
