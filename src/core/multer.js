@@ -1,8 +1,11 @@
 import multer from "multer";
 import configs from "../../locart.config.js";
-import { randomUUID } from "node:crypto";
+import { ObjectId } from "bson";
+import { FileOperations } from "../utils/FileOperations.js";
 
 const { path: storagePath, sizeLimit, allowedMimes } = configs.storage;
+
+FileOperations.createStoragePath(storagePath);
 
 const storageConfig = {
   dest: storagePath,
@@ -10,7 +13,7 @@ const storageConfig = {
     destination: storagePath,
     filename: (req, file, cb) => {
       const fileExtension = file.mimetype.split("/")[1];
-      cb(null, randomUUID() + "." + fileExtension);
+      cb(null, new ObjectId() + "." + fileExtension);
     },
   }),
   limits: {

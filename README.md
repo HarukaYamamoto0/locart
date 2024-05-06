@@ -101,7 +101,7 @@ The next commits will be more focused on the following tasks, but of course keep
 - [x] create the base
 - [x] create a working version
 - [x] configure the project (settings files)
-- [ ] create connection with the database
+- [x] create connection with the database
 - [ ] create tests
 - [ ] make a good file architecture
 - [ ] create authentication system
