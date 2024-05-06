@@ -9,7 +9,7 @@ export default {
   },
   database: {
     // The URL to connect to MongoDB
-    mongodb_url: "mongodb://localhost",
+    database_url: "",
   },
   // storage settings
   storage: {
