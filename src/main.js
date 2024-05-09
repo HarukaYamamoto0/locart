@@ -1,11 +1,15 @@
 import express from "express";
-import configs from "../locart.config.js";
 import cors from "cors";
 import helmet from "helmet";
+
+import configs from "../locart.config.js";
 import imageRouter from "./routes/images.router.js";
+import connectDatabase from "./core/scripts/db.connection.js";
 
 const app = express();
 const port = configs.server.port || 3000;
+
+await connectDatabase();
 
 // Express configuration
 app.use(cors());

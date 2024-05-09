@@ -9,7 +9,8 @@ export default {
   },
   database: {
     // The URL to connect to MongoDB
-    mongodb_url: "mongodb://localhost",
+    database_url:
+      "mongodb+srv://admim:95941412@cluster0.39vdz0z.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
   },
   // storage settings
   storage: {
