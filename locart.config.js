@@ -9,7 +9,7 @@ export default {
   },
   database: {
     // The URL to connect to MongoDB
-    database_url: "mongodb+srv://admim:95941412@cluster-main.ixnnffd.mongodb.net/cluster-main",
+    database_url: "",
   },
   // storage settings
   storage: {
