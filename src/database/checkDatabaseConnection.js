@@ -2,7 +2,7 @@ import prismaClient from "./prismaClient.js";
 
 async function checkDatabaseConnection() {
   try {
-    await prismaClient.image.findMany(); // irei trocar isso para usuarios
+    await prismaClient.image.findMany(); // I will change this to users
     console.log("[Prisma] - Successful database connection");
   } catch (error) {
     console.error("[Prisma] - Failed when trying to connect to the database" + error);

@@ -9,7 +9,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/HarukaYamamoto0/locart">
-    <img src="https://imgur.com/SDlY0FX.png" alt="Logo" width="80" height="80">
+    <img src="./images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Locart Server</h3>
@@ -102,8 +102,8 @@ The next commits will be more focused on the following tasks, but of course keep
 - [x] create a working version
 - [x] configure the project (settings files)
 - [x] create connection with the database
+- [x] make a good file architecture
 - [ ] create tests
-- [ ] make a good file architecture
 - [ ] create authentication system
 - [ ] improve operation to be able to upload many files
 - [ ] create a client
