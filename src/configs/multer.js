@@ -32,4 +32,4 @@ const storageConfig = {
   },
 };
 
-export default storageConfig;
+export { storageConfig };
