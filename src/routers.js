@@ -7,7 +7,7 @@ const router = Router();
 
 const imageController = new ImageController();
 
-router.get("/images/:id", imageController.find);
+router.get("/images/:id", imageController.get);
 router.post("/images", multer(storageConfig).single("image"), imageController.create);
 router.post("/images/:id", imageController.update);
 router.delete("/images/:id", imageController.delete);
