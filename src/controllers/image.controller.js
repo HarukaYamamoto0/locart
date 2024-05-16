@@ -5,63 +5,53 @@ import { FileOperations } from "../utils/FileOperations.js";
 import { cannotBeNull } from "../utils/cannotBeNull.js";
 import { readFile } from "node:fs/promises";
 import { fileTypeFromBuffer } from "file-type";
+import locartConfig from "../../locart.config.js";
+
+const cacheTimeForServer = locartConfig.server.image_cache_time;
+const cacheTimeForClient = locartConfig.database.redis.image_cache_time;
 
 class ImageController {
   async get(req, res) {
     try {
+      // TODO: This code can still be greatly optimized, but for now it works
       const { id } = req.params;
-      cannotBeNull({ id });
+
+      const isNull = cannotBeNull({ id });
+
+      if (isNull[0]) {
+        return res.status(400).json({ error: `Parameter ${isNull[1]} cannot be empty` });
+      }
 
       let image = await redisClient.getBuffer(`image-buffer-${id}`);
+      let mimeType = null;
 
       if (!image) {
         const imageRedis = await prismaClient.image.findFirstOrThrow({
           where: { id },
         });
 
-        if (!imageRedis) res.status(400).json({ error: `Image id ${id} does not exist` });
+        if (!imageRedis) return res.status(400).json({ error: `Image id ${id} does not exist` });
 
         image = await readFile(imageRedis.path);
+        mimeType = imageRedis.mimeType;
 
-        /*
-        res.setHeader("Cache-Control", "public, max-age=3600");
-        res.setHeader("Expires", new Date(Date.now() + 3600000).toUTCString());
-        res.setHeader("Last-Modified", new Date().toUTCString());
-        */
+        res.setHeader("Cache-Control", `public, max-age=${cacheTimeForClient}`);
+        res.setHeader("Expires", new Date(Date.now() + cacheTimeForClient).toUTCString());
+        res.setHeader("Last-Modified", imageRedis.createdAt.toUTCString());
 
-        await redisClient.setBuffer(`image-buffer-${id}`, image);
+        await redisClient.setBuffer(`image-buffer-${id}`, image, "EX", cacheTimeForServer);
       }
 
-      const fileType = await fileTypeFromBuffer(image);
+      const fileType = mimeType != null ? mimeType : await fileTypeFromBuffer(image);
 
       res.setHeader("Content-Type", fileType.mime);
       res.send(image);
-
-      /*
-
-      if (imageRedis) {
-        const imageParsed = JSON.parse(imageRedis);
-
-        return res.sendFile(imageParsed.path, (error) => {
-          if (error) throw new Error(error);
-        });
-      }
-
-      const image = await prismaClient.image.findFirstOrThrow({
-        where: { id },
-      });
-
-      res.sendFile(image.path, (error) => {
-        if (error) throw new Error(error);
-      });
-
-      await redisClient.set(`image-file-${id}`, JSON.stringify(image));
-      */
     } catch (error) {
-      console.error(`[ImageController] - Error when trying to get the image: ` + error);
-      res.status(400).json({ error: `Error when trying to get the image:  ` + error });
+      console.error("[ImageController-Get] - Error when trying to get the image: " + error.stack);
+      res.status(500).json({ error: `Error when trying to get the image:  ` + error });
     }
   }
+
   async create(req, res) {
     const path = resolve(req.file.destination, req.file.filename);
 
@@ -76,7 +66,7 @@ class ImageController {
       res.send(image);
     } catch (error) {
       console.error(`[ImageController] - Error when trying to create the image: ` + error);
-      res.status(400).json({ error: `Error when trying to create the image: ` + error });
+      res.status(500).json({ error: `Error when trying to create the image: ` + error });
       FileOperations.rm(path);
     }
   }
@@ -86,7 +76,12 @@ class ImageController {
       const { id } = req.params;
       const { path } = req.body;
 
-      cannotBeNull({ id, path });
+      const isNull = cannotBeNull({ id, path })[0];
+
+      if (!isNull)
+        return res
+          .status(400)
+          .json({ error: `Parameter ${isNull[1]} cannot be null or undefined!` });
 
       const image = await prismaClient.image.findFirstOrThrow({
         where: {
@@ -108,14 +103,19 @@ class ImageController {
       res.send(newImage);
     } catch (error) {
       console.error(`[ImageController] - Error when trying to update the image: ` + error);
-      res.status(400).json({ error: `Error when trying to update the image: ` + error });
+      res.status(500).json({ error: `Error when trying to update the image: ` + error });
     }
   }
 
   async delete(req, res) {
     try {
       const { id } = req.params;
-      cannotBeNull({ id });
+      const isNull = cannotBeNull({ id })[0];
+
+      if (!isNull)
+        return res
+          .status(400)
+          .json({ error: `Parameter ${isNull[1]} cannot be null or undefined!` });
 
       const image = await prismaClient.image.delete({ where: { id } });
       await FileOperations.rm(image.path);
@@ -123,7 +123,7 @@ class ImageController {
       res.sendStatus(200);
     } catch (error) {
       console.error(`[ImageController] - Error when trying to create the image: ` + error);
-      res.status(400).json({ error: `Error when trying to create the image: ` + error });
+      res.status(500).json({ error: `Error when trying to create the image: ` + error });
     }
   }
 }
