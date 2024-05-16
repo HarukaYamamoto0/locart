@@ -60,6 +60,7 @@ class ImageController {
         data: {
           id: req.file.filename.split(".")[0],
           path,
+          mimeType: req.file.mimetype,
         },
       });
 
