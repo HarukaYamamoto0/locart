@@ -10,6 +10,7 @@ export default {
   database: {
     // The URL to connect to MongoDB
     database_url: "",
+    redis_password: "",
   },
   // storage settings
   storage: {
