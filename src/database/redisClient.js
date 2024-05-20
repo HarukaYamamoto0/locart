@@ -1,7 +1,7 @@
 import Redis from "ioredis";
 import locartConfig from "../../locart.config.js";
 
-const redisClient = new Redis(locartConfig.database.redis.url);
+const redisClient = new Redis({ password: locartConfig.database.redis_password });
 
 async function checkRedisConnection() {
   try {

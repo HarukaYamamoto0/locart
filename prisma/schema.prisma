@@ -11,7 +11,7 @@ model Image {
   id        String   @id @map("_id")
   path      String   @unique
   createdAt DateTime @default(now())
-  mimeType  String
+  mimetype  String
 
   @@map("image")
 }

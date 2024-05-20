@@ -1,7 +1,7 @@
 import multer from "multer";
 import configs from "../../locart.config.js";
 import { ObjectId } from "bson";
-import { FileOperations } from "../utils/FileOperations.js";
+import { FileOperations } from "../helpers/FileOperations.js";
 
 const { path: storagePath, sizeLimit, allowedMimes } = configs.storage;
 

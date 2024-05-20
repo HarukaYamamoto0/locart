@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import compression from "compression";
-import routers from "./routers.js";
+import routers from "./api/routers.js";
 import morgan from "morgan";
 
 const app = express();
