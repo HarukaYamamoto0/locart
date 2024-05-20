@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import configs from "../../locart.config.js";
+import { configs } from "../configs/loadenv.js";
 
 const prismaClient = new PrismaClient({
   datasourceUrl: configs.database.database_url,

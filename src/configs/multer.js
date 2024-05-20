@@ -1,5 +1,5 @@
 import multer from "multer";
-import configs from "../../locart.config.js";
+import { configs } from "./loadenv.js";
 import { ObjectId } from "bson";
 import { FileOperations } from "../helpers/FileOperations.js";
 

@@ -2,3 +2,8 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 npx --no-install lint-staged
+
+echo "generating the .env.example file..."
+npm run build:example:env
+git add --all
+echo "successfully generated"
